@@ -172,7 +172,7 @@ def cs_ms(question,predefined_history):
         Please only answer according to the answer keys provided without changing its wording and adding your own information and points. 
         Please make sure that the answer you output is factually correct by making sure that the answer makes sense to you- a computer
          science teacher.
-    Output all content even if the answer key says "any two from" or something similar. Only limit your number of points if the user asks
+    Output all points from answer key content even if the answer key says "any two from" or something similar. Only limit your number of points if the user asks
     so. DO NOT MAKE UP YOUR OWN CONTENT, ANSWER FROM ONLY THE RELEVANT ANSWER KEY.
 
     
