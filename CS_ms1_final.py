@@ -94,7 +94,7 @@ db_syllabus=FAISS.from_documents(documents=split_syllabus,embedding=cached_embed
 retriever_syllabus_1 = db_syllabus.as_retriever(
         search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.60}
     )
-def cs_ms(question,predefined_history):
+def cs_ms(question):
     
     llm=ChatOpenAI(openai_api_key='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',temperature=0,model_name='gpt-4-turbo-preview')
     retrieved_docs=retriever_all_cosine.get_relevant_documents(
@@ -209,6 +209,6 @@ CORS(app)
 @app.route('/item', methods=['POST'])
 def add_item():
     data = request.json  
-    return cs_ms (data["question"], data["memory"]),201
+    return cs_ms (data["question"]),201
 if __name__ == '__main__':
     app.run(port=8002,debug=True)
