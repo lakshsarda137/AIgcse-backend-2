@@ -24,7 +24,7 @@ from langchain.schema import StrOutputParser
 from langchain.storage import LocalFileStore
 from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold
 chat = ChatVertexAI(project='chatbot-3793c', anthropic_version='vertex-2023-10-16', temperature=0.0,max_output_tokens=2040)
-vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.0-pro',temperature=0.0,max_output_tokens=2000)
+vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.5-pro-preview-0409',temperature=0.0,max_output_tokens=2000)
 from langchain.prompts import PromptTemplate
 from langchain.chains import ConversationalRetrievalChain
 from llamaapi import LlamaAPI
@@ -214,6 +214,6 @@ CORS(app)
 @app.route('/item', methods=['POST'])
 def add_item():
     data = request.json  
-    return cs_ms (data["question"], data["memory"]),201
+    return cs_ms (data["question"]),201
 if __name__ == '__main__':
     app.run(port=8011,debug=True)
