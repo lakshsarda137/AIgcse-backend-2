@@ -32,7 +32,7 @@ from langchain_experimental.llms import ChatLlamaAPI
 from langchain_experimental.chat_models import Llama2Chat
 # Replace 'Your_API_Token' with your actual API token
 llm_google = ChatGoogleGenerativeAI(
-    model="gemini-1.0-pro",
+    model="gemini-1.5-pro-latest",
     google_api_key='AIzaSyCW71zfRU69nAknLobdkOqjM1noPqqlxG0',
     safety_settings={
         HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
@@ -41,7 +41,7 @@ llm_google = ChatGoogleGenerativeAI(
         HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
 
     },
-    temperature=0.45,
+    temperature=0.0,
 )
 llama = LlamaAPI(api_token="LL-3KvWm5j6lg8d848cJFf1kAj0HobLwoS6Lx2R55yr1zafJc9KDsXDzkuOe7x19uhJ")
 facebook=ChatLlamaAPI(client=llama, model_kwargs={"model_name":'llama-7b-chat',"temperature":0.0})

@@ -31,7 +31,7 @@ from langchain_experimental.llms import ChatLlamaAPI
 from langchain_experimental.chat_models import Llama2Chat
 # Replace 'Your_API_Token' with your actual API token
 llm_google = ChatGoogleGenerativeAI(
-    model="gemini-1.0-pro",
+    model="gemini-1.5-pro-latest",
     google_api_key='AIzaSyCW71zfRU69nAknLobdkOqjM1noPqqlxG0',
     safety_settings={
         HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
@@ -178,7 +178,7 @@ def cs_ms(question):
     prompt_ms=PromptTemplate.from_template(template=ms_template)
     output_parser=StrOutputParser()
     chain=ConversationalRetrievalChain.from_llm(
-        llm=vertex,
+        llm=llm_google,
         retriever=retriever_end,
         combine_docs_chain_kwargs={"prompt": prompt_ms},
         memory=ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, k=0),
