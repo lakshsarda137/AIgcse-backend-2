@@ -7,8 +7,12 @@ from langchain.prompts import PromptTemplate
 from langchain_openai import OpenAIEmbeddings,ChatOpenAI
 from flask import Flask,jsonify,Request,request
 from flask_cors import CORS
-from langchain_google_vertexai import ChatVertexAI
-vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.0-pro',temperature=0.0,max_output_tokens=2000)
+from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold, HarmCategory
+vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.5-pro-preview-0409',temperature=0.0,max_output_tokens=2000,safety_settings={        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE})
 from langchain_google_genai import (
     ChatGoogleGenerativeAI,
     HarmBlockThreshold,

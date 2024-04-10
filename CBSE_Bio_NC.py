@@ -12,7 +12,7 @@ from langchain.memory import ConversationBufferWindowMemory
 from langchain.embeddings import CacheBackedEmbeddings
 from langchain.storage import InMemoryStore
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_google_vertexai import ChatVertexAI
+from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold, HarmCategory
 vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.0-pro',temperature=0.0,max_output_tokens=2000)
 from langchain.schema import StrOutputParser
 from langchain.storage import LocalFileStore

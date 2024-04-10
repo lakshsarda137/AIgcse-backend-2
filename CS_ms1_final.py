@@ -6,7 +6,7 @@ from langchain.prompts import PromptTemplate
 from langchain_openai import OpenAIEmbeddings,ChatOpenAI
 from flask import Flask,jsonify,Request,request
 from flask_cors import CORS
-from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold, HarmCategory
+from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold, HarmCategory, HarmBlockThreshold, HarmCategory
 from langchain_anthropic import ChatAnthropic
 
 from langchain_google_genai import (
@@ -21,7 +21,7 @@ from langchain.storage import InMemoryStore
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import StrOutputParser
 from langchain.storage import LocalFileStore
-from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold
+from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold, HarmCategory, HarmBlockThreshold
 chat = ChatVertexAI(project='chatbot-3793c', anthropic_version='vertex-2023-10-16', temperature=0.0,max_output_tokens=2040)
 vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.0-pro',temperature=0.0,max_output_tokens=2000)
 from langchain.prompts import PromptTemplate

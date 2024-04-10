@@ -7,8 +7,12 @@ from langchain.prompts import PromptTemplate
 from langchain_openai import OpenAIEmbeddings,ChatOpenAI
 from flask import Flask,jsonify,Request,request
 from flask_cors import CORS
-from langchain_google_vertexai import ChatVertexAI
-vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.0-pro',temperature=0.0,max_output_tokens=2000)
+from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold, HarmCategory
+vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.5-pro-preview-0409',temperature=0.0,max_output_tokens=2000,safety_settings={        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE})
 from langchain_google_genai import (
     ChatGoogleGenerativeAI,
     HarmBlockThreshold,
@@ -184,9 +188,10 @@ def bio_ms_4(question,predefined_history):
         retriever=retriever_syllabus_1,     
     )
     output=chain.invoke(question)
+    print (output)
     output_s=chain_syllabus.invoke(question)
     answeronly_s=output_s.get('answer','')
-    print (retriever_sim.invoke(question))
+  
     answeronly=output.get('answer','') 
     final_ms=output_parser.invoke(answeronly)
     final_syllabus=output_parser.invoke(answeronly_s)

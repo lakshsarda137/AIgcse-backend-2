@@ -6,7 +6,7 @@ from langchain.prompts import PromptTemplate
 from langchain_openai import OpenAIEmbeddings,ChatOpenAI
 from flask import Flask,jsonify,Request,request
 from flask_cors import CORS
-from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold, HarmCategory
+from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold, HarmCategory, HarmBlockThreshold, HarmCategory
 from langchain_anthropic import ChatAnthropic
 model_anthropic = ChatAnthropic(model='claude-3-sonnet-20240229',anthropic_api_key='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',temperature=0.0)
 
@@ -22,9 +22,13 @@ from langchain.storage import InMemoryStore
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import StrOutputParser
 from langchain.storage import LocalFileStore
-from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold
+from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold, HarmCategory, HarmBlockThreshold
 chat = ChatVertexAI(project='chatbot-3793c', anthropic_version='vertex-2023-10-16', temperature=0.0,max_output_tokens=2040)
-vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.5-pro-preview-0409',temperature=0.0,max_output_tokens=2000)
+vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.5-pro-preview-0409',temperature=0.0,max_output_tokens=2000,safety_settings={        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE})
 from langchain.prompts import PromptTemplate
 from langchain.chains import ConversationalRetrievalChain
 from llamaapi import LlamaAPI

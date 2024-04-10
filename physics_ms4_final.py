@@ -6,8 +6,12 @@ from langchain.embeddings import CacheBackedEmbeddings
 from langchain.prompts import PromptTemplate
 from langchain_openai import OpenAIEmbeddings,ChatOpenAI
 from flask import Flask,jsonify,Request,request
-from langchain_google_vertexai import ChatVertexAI
-chat = ChatVertexAI(project='chatbot-3793c', anthropic_version='vertex-2023-10-16', temperature=0.0,max_output_tokens=2040)
+from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold, HarmCategory
+vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.5-pro-preview-0409',temperature=0.0,max_output_tokens=2000,safety_settings={        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE})
 
 from flask_cors import CORS
 from langchain_google_genai import (
@@ -18,7 +22,6 @@ from langchain_google_genai import (
 from langchain_core.output_parsers import StrOutputParser
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.embeddings import CacheBackedEmbeddings
-vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.0-pro',temperature=0.0,max_output_tokens=2000)
 from langchain.storage import InMemoryStore
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import StrOutputParser
@@ -179,7 +182,7 @@ def phy_ms_4(question,predefined_history):
     )
     print (retriever_sim.invoke(question))
     chain_syllabus=ConversationalRetrievalChain.from_llm(
-        llm=chat,
+        llm=vertex,
         combine_docs_chain_kwargs={"prompt":prompt_syllabus},
         memory=ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, k=0),
         retriever=retriever_syllabus_1,     

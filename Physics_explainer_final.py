@@ -8,6 +8,12 @@ from flask import Flask,jsonify,Request,request
 from flask_cors import CORS
 from langchain_core.output_parsers import StrOutputParser
 from langchain.memory import ConversationBufferWindowMemory
+from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold, HarmCategory
+vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.5-pro-preview-0409',temperature=0.45,max_output_tokens=2000,safety_settings={        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE})
 from langchain.embeddings import CacheBackedEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import StrOutputParser
@@ -70,7 +76,7 @@ def physics_explainer(question,history):
     Helpful answer: """
     prompt=PromptTemplate.from_template(template=template)
     qa = ConversationalRetrievalChain.from_llm(
-        llm=llm_google,
+        llm=vertex,
         retriever=retriever_sim,
         combine_docs_chain_kwargs={"prompt": prompt},
         memory=ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, k=0)
