@@ -24,11 +24,12 @@ from langchain.schema import StrOutputParser
 from langchain.storage import LocalFileStore
 from langchain_google_vertexai import ChatVertexAI, HarmBlockThreshold, HarmCategory, HarmBlockThreshold
 chat = ChatVertexAI(project='chatbot-3793c', anthropic_version='vertex-2023-10-16', temperature=0.0,max_output_tokens=2040)
-vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.5-pro-preview-0409',temperature=0.0,max_output_tokens=2000,safety_settings={        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+vertex=ChatVertexAI(project='chatbot-3793c',model_name='gemini-1.5-pro-preview-0409',temperature=0.0,max_output_tokens=2000,safety_settings={
         HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
         HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
         HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE})
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_UNSPECIFIED:HarmBlockThreshold.BLOCK_NONE})
 from langchain.prompts import PromptTemplate
 from langchain.chains import ConversationalRetrievalChain
 from llamaapi import LlamaAPI
@@ -193,7 +194,7 @@ def cs_ms(question):
         memory=ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, k=0),
     )
     chain_syllabus=ConversationalRetrievalChain.from_llm(
-        llm=llm_google,
+        llm=vertex,
         combine_docs_chain_kwargs={"prompt":prompt_syllabus},
         memory=ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True, k=0),
         retriever=retriever_syllabus_1,

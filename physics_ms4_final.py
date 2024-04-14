@@ -164,6 +164,30 @@ def phy_ms_4(question,predefined_history):
         Please only answer according to the answer keys provided without changing its wording and adding your own information and points. 
         Please make sure that the answer you output is factually correct by making sure that the answer makes sense to you- a physics
          eacher.
+    NOTE: Give numerical answers in LATEX format. Example: As per marking scheme:<br /><br />
+      <strong>Calculating Total Pressure at Turbine Depth</strong>
+      Here's how to calculate the total pressure at the turbine depth:
+      <em>(i) Calculate the pressure due to the water:</em>
+      We can use the formula:
+      <code>p = hρg</code>
+      where:<br />
+      • $p$ is the pressure due to the water<br />
+      • $h = 150\,m$ is the depth of the turbine<br />
+      • $ρ = 1000\,kg/m^3$ is the density of water<br />
+      • $g = 10\,N/kg$ is the acceleration due to gravity<br />
+      Calculating the pressure:
+      <code>p = 150\,m \times 1000\,kg/m^3 \times 10\,N/kg = 1.5 \times 10^6\,Pa</code>
+      <em>(ii) Add atmospheric pressure to find the total pressure:</em>
+      Total pressure $P =$
+      pressure due to water + atmospheric pressure
+      <code>P = 1.5 \times 10^6\,Pa + 1.0 \times 10^5\,Pa = 1.6 \times 10^6\,Pa</code>
+      Therefore, the total pressure in the water at the turbine is
+      <strong>1.6 \times 10^6\,Pa</strong>.<br /><br />
+      Relevant syllabus content:<br /><br />
+      4 Recall and use the equation for the change in gravitational potential energy ∆Ep = mg∆h<br />
+      5 Know the principle of the conservation of energy and apply this principle to complex examples involving multiple stages, including the interpretation of Sankey diagrams<br />
+      Supplement 4 Recall and use the equation ∆p = ȡg∆h<br /><br />
+      Relevant answer keys:<br /><br />
     Output all content even if the answer key says "any two from" or something similar. Only limit your number of points if the user asks
     so. Do not miss out on any points from the relevant answer key that you choose but do not add your own points.
     Note: Do not add your own points or information, just use the content given in the relevant answer key.
@@ -209,4 +233,4 @@ def add_item():
     data = request.json   
     return phy_ms_4 (data["question"], data["memory"]),201
 if __name__ == '__main__':
-    app.run(port=8008,debug=True)
+    app.run(port=4130,debug=True)
